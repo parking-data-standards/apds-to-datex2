@@ -9,11 +9,14 @@ In _APDS_, elements in the `Place` hierarchy and _Right Specifications_ from the
 - find out which _Right Specifications_ are applicable to a given _Place_ and
 - determine the list of one or more _Places_ to which a particular _Right_ is applicable
 
-In _APDS_, _Rights_ are used to define eligibility criteria by means of time-based constraints and so-called qualifications.  
+The _APDS_ model uses _Rights_ to define eligibility criteria by means of time-based constraints and so-called qualifications. Only users/vehicles matching those criteria are then eligible to make use of a particular _Right Specification_.  
 
 
 ## Examples
 Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this repository are using "logical" ids for better readability.
+
+1. [Different Charging Hours](#1-different-charging-hours)
+2. [Zero-Emission Zone](#2-zero-emission-zone)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -149,4 +152,46 @@ Everything then comes together via the two corresponding _Right Specifications_.
   }
 }
 ```
-### 2. Another Example 
+### 2. Zero-Emission Zone
+In the city centre, a local authority has demarcated a zero-emission zone. For this area, only vehicles fulfulling this requirement are eligible.
+
+#### Place
+In this example, there is just one _Right Specification_ limiting the use of the location to specific vehicles only.
+```json
+{
+  "id": "{ZeroEmissionLocationId}",
+  "version": 1,
+  "type": "place",
+  "areaType": "",
+  "rightSpecifications": [
+    { 
+      "id": "{ZeroEmissionRightId}", 
+      "version": 1
+    }
+  ],
+  // contents truncated
+}
+```
+#### Right Specification
+Eligibility is defined via a corresponding _Right Specification_ with one _Qualification_ criterion:
+```json
+{
+  "id": "{ZeroEmissionRightId}",
+  "version": 1,
+  "type": "oneTimeUseParking",
+  "description": [ { "language": "en", "string": "zero-emission vehicles only"}],
+  "hierarchyElements": [
+    {
+      "id": "{ZeroEmissionLocationId}",
+      "version": 1
+    }
+  ],
+  "qualifications": [
+    {
+      "emissions": {
+        "emissionLevel": "freeOfEmission"
+      }
+    }
+  ]
+}
+```
