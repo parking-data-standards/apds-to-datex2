@@ -17,6 +17,7 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 
 1. [Different Charging Hours](#1-different-charging-hours)
 2. [Zero-Emission Zone](#2-zero-emission-zone)
+3. [Vehicle-based Restrictions](#3-vehicle-based-restrictions)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -161,6 +162,7 @@ In this example, there is just one _Right Specification_ limiting the use of the
   "id": "{ZeroEmissionLocationId}",
   "version": 1,
   "type": "identifiedArea",
+  "layer": 1,
   "rightSpecifications": [
     { 
       "id": "{ZeroEmissionRightId}", 
@@ -189,6 +191,70 @@ Eligibility is defined via a corresponding _Right Specification_ with one _Quali
       "emissions": {
         "emissionLevel": "freeOfEmission"
       }
+    }
+  ]
+}
+```
+
+### 3. Vehicle-based Restrictions
+A local authority operates a very old car park. The structure dates back to a time when vehicles were much smaller and lighter. As a consequence, usage of the car park needs to be restricted to vehicles that don't exceed certain dimensions and weight. In our examples, vehicles must not exceed 1.75 tons of total weight (vehicle + load) and have dimensions (Length/Width/Height) within the boundaries of (4.5 metres/1.8 metres/1.9 metres).  
+
+#### Place
+```json
+{
+  "id": "{OldPlaceId}",
+  "version": 1,
+  "type": "parkingPlace",
+  "layer": 1,
+  "name": [ { "language": "en", "string": "The Old Shed"}],
+  "rightSpecifications": [
+    {
+      "id": "{SmallAndLightVehiclesOnlyRightId}",
+      "version": 1
+    }
+  ]
+  // contents truncated
+}
+```
+
+#### Right Specification
+```json
+{
+  "id": "{SmallAndLightVehiclesOnlyRightId}",
+  "version": 1,
+  "hierarchyElements": [
+    {
+      "id": "{OldPlaceId}",
+      "version": 1
+    }
+  ],
+  "qualifications": [
+    {
+      "grossWeightCharacteristics": [
+        { 
+          "grossVehicleWeight": 1.75,
+          "typeOfWeight": "maximumPermitted",
+          "comparisonOperator": "lessThanOrEqualTo"
+        }
+      ],
+      "heightCharacteristics": [
+        {
+          "vehicleHeight": 1.9,
+          "comparisonOperator": "lessThanOrEqualTo"
+        }
+      ],
+      "lengthCharacteristics": [
+        {
+          "vehicleLength": 4.5,
+          "comparisonOperator": "lessThanOrEqualTo"
+        }
+      ],
+      "widthCharacteristics": [
+        {
+          "vehicleWidth": 1.8,
+          "comparisonOperator": "lessThanOrEqualTo"
+        }
+      ]
     }
   ]
 }
