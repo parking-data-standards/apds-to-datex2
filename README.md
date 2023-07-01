@@ -27,10 +27,9 @@ The parking location where the two rates apply (_Place_ object):
 {
   "id": "{PlaceId}",
   "version": 1,
-  "type": "place",
+  "type": "parkingPlace",
   "layer": 1, 
   "name": [{ "language": "en", "string": "Main Street"}],
-  "areaType": "generalParking",
   "characteristics": {
     "structureType": "onStreet",
     "structureGrade": "groundLevel",
@@ -161,14 +160,13 @@ In this example, there is just one _Right Specification_ limiting the use of the
 {
   "id": "{ZeroEmissionLocationId}",
   "version": 1,
-  "type": "place",
-  "areaType": "",
+  "type": "identifiedArea",
   "rightSpecifications": [
     { 
       "id": "{ZeroEmissionRightId}", 
       "version": 1
     }
-  ],
+  ]
   // contents truncated
 }
 ```
