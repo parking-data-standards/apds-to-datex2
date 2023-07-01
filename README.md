@@ -153,7 +153,7 @@ Everything then comes together via the two corresponding _Right Specifications_.
 }
 ```
 ### 2. Zero-Emission Zone
-In the city centre, a local authority has demarcated a zero-emission zone. For this area, only vehicles fulfulling this requirement are eligible.
+In the city centre, a local authority has demarcated a zero-emission zone. For this area, only vehicles meeting this requirement are eligible.
 
 #### Place
 In this example, there is just one _Right Specification_ limiting the use of the location to specific vehicles only.
