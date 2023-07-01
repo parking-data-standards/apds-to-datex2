@@ -18,6 +18,8 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 1. [Different Charging Hours](#1-different-charging-hours)
 2. [Zero-Emission Zone](#2-zero-emission-zone)
 3. [Vehicle-based Restrictions](#3-vehicle-based-restrictions)
+4. [Different Rate for Reservation Customers](#4-different-rate-for-reservation-customers)
+5. [Customer-only Parking](#5-customer-only-parking)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -41,10 +43,9 @@ The parking location where the two rates apply (_Place_ object):
     { "id": "{DaylightHoursRightId}", "version": 1},
     { "id": "{EveningHoursRightId}", "version": 1}
   ]
-  
-  // contents truncated (additional place attributes)
 }
 ```
+_(contents truncated - additional place attributes)_
 #### Rates
 The two _Rate Tables_ potentially applicable  
 ##### Daylight
@@ -53,25 +54,22 @@ The two _Rate Tables_ potentially applicable
   "id": "{DaylightRateId}",
   "version": 1,
   "rateTableName": [{ "language": "en", "string": "public parking during daylight hours"}],
-  "rateLineCollections": [
-    // contents truncated (details of the rate table)
-  ],
+  "rateLineCollections": [ {} ],
   "rateResponsibleParty": "XYZ City Council"
 }
 ```
+_(contents truncated - details of the rate table)_
 ##### Evening  
 ```json
 {
   "id": "{EveningRateId}",
   "version": 1,
   "rateTableName": [{ "language": "en", "string": "public parking during evening hours"}],
-  "rateLineCollections": [
-    // contents truncated (details of the rate table)
-  ],
+  "rateLineCollections": [ {} ],
   "rateResponsibleParty": "XYZ City Council"
 }
-
 ```
+_(contents truncated - details of the rate table)_
 #### Right Specifications
 Everything then comes together via the two corresponding _Right Specifications_.
 ##### Daylight Hours Right
@@ -86,7 +84,7 @@ Everything then comes together via the two corresponding _Right Specifications_.
   ],
   "rateEligibility": [
     {
-      "id": "",
+      "id": "e908a3ab-8931-46fb-9ef9-c49f1f262dcb",
       "version": 1,
       "rate": {
         "id": "{DaylightRateId}",
@@ -125,7 +123,7 @@ Everything then comes together via the two corresponding _Right Specifications_.
   ],
   "rateEligibility": [
     {
-      "id": "",
+      "id": "38745ba6-af98-4c7d-b14d-4115325a55ca",
       "version": 1,
       "rate": {
         "id": "{EveningRateId}",
@@ -169,9 +167,9 @@ In this example, there is just one _Right Specification_ limiting the use of the
       "version": 1
     }
   ]
-  // contents truncated
 }
 ```
+_(contents truncated - further place details)_
 #### Right Specification
 Eligibility is defined via a corresponding _Right Specification_ with one _Qualification_ criterion:
 ```json
@@ -186,10 +184,24 @@ Eligibility is defined via a corresponding _Right Specification_ with one _Quali
       "version": 1
     }
   ],
-  "qualifications": [
+  "rateEligibility": [
     {
-      "emissions": {
-        "emissionLevel": "freeOfEmission"
+      "id": "e86eb1ac-f7bb-44ed-91bd-2b1f854a18df",
+      "version": 1,
+      "rateTable": {
+        "id": "{RateIdForZeroEmissionZone}",
+        "version": 1
+      },
+      "eligibility": {
+        "eligibilityName": [ { "language": "en", "string": "zero-emission only"}],
+        "description": [ { "language": "en", "string": "only zero-emission vehicle qualify for this right"}],
+        "qualifications": [
+          {
+            "emissions": {
+              "emissionLevel": "freeOfEmission"
+            }
+          }
+        ]
       }
     }
   ]
@@ -197,7 +209,7 @@ Eligibility is defined via a corresponding _Right Specification_ with one _Quali
 ```
 
 ### 3. Vehicle-based Restrictions
-A local authority operates a very old car park. The structure dates back to a time when vehicles were much smaller and lighter. As a consequence, usage of the car park needs to be restricted to vehicles that don't exceed certain dimensions and weight. In our examples, vehicles must not exceed 1.75 tons of total weight (vehicle + load) and have dimensions (Length/Width/Height) within the boundaries of (4.5 metres/1.8 metres/1.9 metres).  
+A local authority operates a very old car park. The structure dates back to a time when vehicles were much smaller and lighter. As a consequence, usage of the car park needs to be restricted to vehicles that don't exceed certain dimensions and weight. In our example, vehicles must not exceed 1.75 tons of total weight (vehicle + load) and have dimensions (Length/Width/Height) within the boundaries of (4.5 metres/1.8 metres/1.9 metres).  
 
 #### Place
 ```json
@@ -213,9 +225,9 @@ A local authority operates a very old car park. The structure dates back to a ti
       "version": 1
     }
   ]
-  // contents truncated
 }
 ```
+_(contents truncated - further place details)_
 
 #### Right Specification
 ```json
@@ -228,33 +240,156 @@ A local authority operates a very old car park. The structure dates back to a ti
       "version": 1
     }
   ],
-  "qualifications": [
+  "rateEligibility": [
     {
-      "grossWeightCharacteristics": [
-        { 
-          "grossVehicleWeight": 1.75,
-          "typeOfWeight": "maximumPermitted",
-          "comparisonOperator": "lessThanOrEqualTo"
-        }
-      ],
-      "heightCharacteristics": [
-        {
-          "vehicleHeight": 1.9,
-          "comparisonOperator": "lessThanOrEqualTo"
-        }
-      ],
-      "lengthCharacteristics": [
-        {
-          "vehicleLength": 4.5,
-          "comparisonOperator": "lessThanOrEqualTo"
-        }
-      ],
-      "widthCharacteristics": [
-        {
-          "vehicleWidth": 1.8,
-          "comparisonOperator": "lessThanOrEqualTo"
-        }
-      ]
+      "id": "f6e7fb78-0f9e-4844-875f-d6a50b784197",
+      "version": 1,
+      "rateTable": {
+        "id": "{RateIdForOldCarPark}",
+        "version": 1
+      },
+      "eligibility": {
+        "description": [ { "language": "en", "string": "very old car park, size and weight restrictions apply"}],
+        "qualifications": [
+          {
+            "grossWeightCharacteristics": [
+              {
+                "grossVehicleWeight": 1.75,
+                "typeOfWeight": "maximumPermitted",
+                "comparisonOperator": "lessThanOrEqualTo"
+              }
+            ],
+            "heightCharacteristics": [
+              {
+                "vehicleHeight": 1.9,
+                "comparisonOperator": "lessThanOrEqualTo"
+              }
+            ],
+            "lengthCharacteristics": [
+              {
+                "vehicleLength": 4.5,
+                "comparisonOperator": "lessThanOrEqualTo"
+              }
+            ],
+            "widthCharacteristics": [
+              {
+                "vehicleWidth": 1.8,
+                "comparisonOperator": "lessThanOrEqualTo"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+### 4. Different Rate for Reservation Customers
+A car park operator wants to create incentives for customers who pre-book a space in a car park. Customers with a reservation will therefore be eligible for a different (cheaper) rate. Adhoc parkers have to pay the standard rate.
+#### Place
+```json
+{
+  "id": "{MixedUsePlaceId}",
+  "version": 1,
+  "type": "parkingPlace",
+  "name": [ { "language": "en", "string": "City Centre Car Park"}],
+  "rightSpecifications": [
+    { "id": "{AdhocParkerRightId}", "version": 1},
+    { "id": "{PreBookParkerRightId}", "version": 1}
+  ]
+}
+```
+_(contents truncated)_
+
+#### Standard Right Specification
+```json
+{
+  "id": "{AdhocParkerRightId}",
+  "version": 1,
+  "description": [ { "language": "en", "string": "standard (non-pre-book) parkers"}],
+  "rateEligibility": [
+    {
+      "id": "4355949a-8f6a-450e-8013-c3edaddf979d",
+      "version": 1,
+      "rateTable": {
+        "id": "{StandardRateId}",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+
+#### Right Specification for Pre-Bookers
+```json
+{
+  "id": "{PreBookParkerRightId}",
+  "version": 1,
+  "description": [ { "language": "en", "string": "pre-bookers only"}],
+  "rateEligibility": [
+    {
+      "id": "3334b1b7-9b36-4bb8-a0b5-906c65876b1e",
+      "version": 1,
+      "rateTable": {
+        "id": "{ReducedPreBookerRateId}",
+        "version": 1
+      },
+      "eligibility": {
+        "eligibilityName": "Pre-Bookers",
+        "qualifications": [
+          {
+            "withReservation": true
+          }
+        ]
+      }
+    } 
+  ]
+}
+```
+
+### 5. Customer-only Parking
+A fitness studio has a small adjacent parking lot that shall only be used by members of the gym.
+
+#### Place
+```json
+{
+  "id": "{FitnessStudioLocationId}",
+  "version": 1,
+  "type": "parkingPlace",
+  "name": [ { "language": "en", "string": "Fit24"}],
+  "rightSpecifications": [
+    { "id": "{MembersOnlyRightId}", "version":  1}
+  ]
+}
+```
+_(contents truncated - further place details)_
+
+#### Right Specification
+```json
+{
+  "id": "{MembersOnlyRightId}",
+  "version": 1,
+  "hierarchyElements": [
+    { "id":  "{FitnessStudioLocationId}", "version": 1}
+  ],
+  "rateEligibility": [
+    {
+      "id": "1e3a3d07-47ea-4f72-8039-e8c817602dfc",
+      "version": 1,
+      "rateTable": {
+        "id": "{RateTableIdForMembersOnly}",
+        "version": 1
+      },
+      "eligibility": {
+        "eligibilityName": [ { "language": "en", "string": "members only"}],
+        "qualifications": [
+          {
+            "withMembership": true,
+            "membershipNames": [ "Fit24"]
+          }
+        ]
+      }
     }
   ]
 }
