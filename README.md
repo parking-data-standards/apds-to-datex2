@@ -21,7 +21,8 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 4. [Different Rate for Reservation Customers](#4-different-rate-for-reservation-customers)
 5. [Customer-only Parking](#5-customer-only-parking)
 6. [Interconnected Rights - Reduced Rate for Subsequent Visits](#6-interconnected-right-specifications)
-7. [Rights per Vehicle Type of Drive](#7-rights-per-vehicle-type-of-drive)
+7. [Differentiate Vehicle Type of Drive](#7-rights-per-vehicle-type-of-drive)
+8. [Differentiate Payment Methods](#8-right-per-payment-method)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -541,4 +542,81 @@ _(contents truncated - additional place details)_
 }
 ```
 Please also take note of the "priority" attribute. It controls the order of precedence in case multiple _Rate Eligibilities_ should apply. In our example, this could for instance be the case with diesel/battery-hybrid vehicles. The (highest) priority of 1 prescribes the diesel rate for this case.
+
+### 8. Right per Payment Method
+A local authority is planning to reduce the number of pay-and-display machines installed in their streets. In a first step, they would like to incentivise cashless payment and hence introduce a special (reduced) cashless rate.
+
+#### Place
+```json
+{
+  "id": "{PlaceId}",
+  "version": 1,
+  "rightSpecifications": [
+    { "id": "{PaymentMethodAwareRightId}", "version": 1}
+  ]
+}
+```
+_(contents truncated - additional place details)_
+
+#### Right Specification
+```json
+{
+  "id": "{PaymentMethodAwareRightId}",
+  "version": 1,
+  "description": [ { "language": "en", "string": "pay cashless, pay less"}],
+  "hierarchyElements": [
+    { "id": "{PlaceId}", "version": 1}
+  ],
+  "rateEligibility": [
+    {
+      "id": "{StandardEligibilityId}",
+      "version": 1,
+      "eligibility": {
+        "qualifications": [
+          {
+            "paymentMethod": [
+              {
+                "paymentMeans": [
+                  "cashBillsOnly",
+                  "cashCoinsOnly",
+                  "cashCoinsAndBills"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rateTable": {
+        "id": "{StandardRateId}",
+        "version": 1
+      }
+    },
+    {
+      "id": "{ReducedRateEligibilityId}",
+      "version": 1,
+      "eligibility": {
+        "qualifications": [
+          {
+            "paymentMethod": [
+              { 
+                "paymentMeans": [
+                  "mobileAccount", 
+                  "paymentCreditCard", 
+                  "paymentDebitCard", 
+                  "prepay"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "rateTable": {
+        "id": "{ReducedRateId}",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+In the example above, the explicit qualifications definition for the standard rate (cash-payers) is obviously optional and only included for a higher level of verbosity.
 
