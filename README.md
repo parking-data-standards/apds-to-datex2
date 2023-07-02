@@ -23,6 +23,7 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 6. [Interconnected Rights - Reduced Rate for Subsequent Visits](#6-interconnected-right-specifications)
 7. [Differentiate Vehicle Type of Drive](#7-rights-per-vehicle-type-of-drive)
 8. [Differentiate Payment Methods](#8-right-per-payment-method)
+9. [Special Load Types](#9-special-load-types)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -620,3 +621,66 @@ _(contents truncated - additional place details)_
 ```
 In the example above, the explicit qualifications definition for the standard rate (cash-payers) is obviously optional and only included for a higher level of verbosity.
 
+### 9. Special Load Types
+A shopping centre owner has a number of parking spaces dedicated to delivery vehicles with special types of load only (supply chain optimisation).
+
+#### Place
+```json
+{
+  "id": "{SpecialDeliveryZoneId}",
+  "version": 1,
+  "type": "IdentifiedArea",
+  "name": [ { "language": "en", "string": "special delivery unloading zone"}],
+  "rightSpecifications": [
+    { "id": "{SpecialGoodsRightId}", "version": 1}
+  ]
+}
+```
+
+#### Right Specification
+
+```json
+{
+  "id": "{SpecialGoodsRightId}",
+  "version": 1,
+  "description": [
+    {
+      "language": "en",
+      "string": "right for delivery of special goods only"
+    }
+  ],
+  "hierarchyElements": [
+    {
+      "id": "{SpecialDeliveryZoneId}",
+      "version": 1
+    }
+  ],
+  "rateEligibility": [
+    {
+      "eligibility": {
+        "qualifications": [
+          {
+            "freeToPark": true,
+            "vehicleLoads": [
+              {
+                "loadType": {
+                  "entryDefinedValue": "refrigeratedGoods",
+                  "codeListEntryId": "{CustomLoadTypeListId}"
+                }
+              },
+              {
+                "loadType": {
+                  "entryDefinedValue": "perishableProducts",
+                  "codeListEntryId": "{CustomLoadTypeListId}"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+Note #1: the example is referencing a user-defined code list of load types defined elsewhere (_CustomLoadTypeListId_).  
+Note #2: as delivery vehicles with the defined types of load park for free, the example _Right Specification_ is using the `freeToPark` short-cut attribute instead of referencing a _Rate Table_.
