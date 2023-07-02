@@ -20,7 +20,8 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 3. [Vehicle-based Restrictions](#3-vehicle-based-restrictions)
 4. [Different Rate for Reservation Customers](#4-different-rate-for-reservation-customers)
 5. [Customer-only Parking](#5-customer-only-parking)
-6. [Interconnected Rights](#6-interconnected-right-specifications)
+6. [Interconnected Rights - Reduced Rate for Subsequent Visits](#6-interconnected-right-specifications)
+7. [Rights per Vehicle Type of Drive](#7-rights-per-vehicle-type-of-drive)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -472,4 +473,72 @@ A local authority grants a reduced rate to parkers who return a second time on t
 
 As you can see, the 2nd _Right Specification_ (with eligibility for a reduced rate) is linked to / dependent on the 1st one. The qualification in its eligibility definition says:  
 > "I am linked to the _Right Specification_ for the standard rate. In case you already have made active use of it **today**, you're eligible for this reduced rate right during any subsequent visit today."
+
+### 7. Rights per Vehicle Type of Drive
+The London Borough of Camden imposes a tariff that differentiates between Diesel-powered vehicles and non-Diesel-powered vehicles.
+
+#### Place
+```json
+{
+  "id": "{CamdenLocationId}",
+  "version": 1,
+  "rightSpecifications": [
+    { "id":  "{PerDriveTypeRightId}"}
+  ]
+}
+```
+_(contents truncated - additional place details)_
+
+#### Right Specification
+```json
+{
+  "id": "{PerDriveTypeRightId}",
+  "version": 1,
+  "hierarchyElements": [
+    { "id": "{CamdenLocationId}"}
+  ],
+  "rateEligibility": [
+    {
+      "id": "{NonDieselRateEligibility}",
+      "priority": 2,
+      "eligibility": {
+        "qualifications": [
+          {
+            "propulsionEnergyType": [
+                "battery",
+                "ethanol",
+                "hydrogen",
+                "liquidGas",
+                "lpg",
+                "methane",
+                "petrol"
+            ]
+          }
+        ]
+      },
+      "rateTable": {
+        "id": "{ReducedRateId}",
+        "version": 1
+      }
+    },
+    {
+      "id": "{DieselRateEligibility}",
+      "priority": 1,
+      "eligibility": {
+        "description": [ { "language": "en", "string": "Diesel-powered vehicle pay more"}],
+        "qualifications": [
+          {
+            "propulsionEnergyType": [ "diesel", "biodiesel"]
+          }
+        ]
+      },
+      "rateTable": {
+        "id": "{IncreasedRateId}",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+Please also take note of the "priority" attribute. It controls the order of precedence in case multiple _Rate Eligibilities_ should apply. In our example, this could for instance be the case with diesel/battery-hybrid vehicles. The (highest) priority of 1 prescribes the diesel rate for this case.
 
