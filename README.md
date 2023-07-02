@@ -20,6 +20,7 @@ Note: while _APDS_ recommends GUID-formatted identifiers, the examples in this r
 3. [Vehicle-based Restrictions](#3-vehicle-based-restrictions)
 4. [Different Rate for Reservation Customers](#4-different-rate-for-reservation-customers)
 5. [Customer-only Parking](#5-customer-only-parking)
+6. [Interconnected Rights](#6-interconnected-right-specifications)
 
 ### 1. Different Charging Hours
 A local authority offers on-street parking in selected locations. Depending on the time of day, different rates apply: there is a "daylight hours" rate, and there is an "evening hours" rate. The applicability is defined via two corresponding _Right Specifications_.
@@ -394,4 +395,81 @@ _(contents truncated - further place details)_
   ]
 }
 ```
+### 6. Interconnected Right Specifications
+A local authority grants a reduced rate to parkers who return a second time on the same day.
+
+#### Place
+```json
+{
+  "id": "{PlaceWithConnectedRightsId}",
+  "version": 1,
+  "type": "parkingPlace",
+  "rightSpecifications": [
+    { "id": "{RightIdForStandardRate}", "version": 1},
+    { "id": "{RightIdForReducedRate}", "version": 1}
+  ]
+}
+```
+
+#### Right (used for Standard Rate)
+```json
+{
+  "id": "{RightIdForStandardRate}",
+  "version": 1,
+  "description": [ { "language": "en", "string": "1st visit every day (standard rate applies)"}],
+  "hierarchyElements": [
+    { "id": "{PlaceWithConnectedRightsId}", "version": 1}
+  ],
+  "rateEligibility": [
+    {
+      "id": "f1e43370-07dc-4934-9a72-294baaadb1df",
+      "version": 1,
+      "rateTable": {
+        "id": "{StandardRateId}",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+
+#### Right (used for Reduced Rate)
+```json
+{
+  "id": "{RightIdForReducedRate}",
+  "version": 1,
+  "description": [ { "language": "en", "string": "pay less for subsequent visits"}],
+  "hierarchyElements": [
+    { "id": "{PlaceWithConnectedRightsId}", "version": 1}
+  ],
+  "rateEligibility": [
+    {
+      "id": "e214db52-0cc5-48e7-8cfb-4f0e8888070a",
+      "version": 1,
+      "eligibility": {
+        "qualifications": [
+          {
+            "linkedRightSpecification": {
+              "qualifyingRightSpecification": {
+                "id": "{RightIdForStandardRate}"
+              },
+              "assignedRightTimeRelative": {
+                "unit": "day",
+                "earliestStartRelative": "current"
+              }
+            }
+          }
+        ]
+      },
+      "rateTable": {
+        "id": "{ReducedRateId}",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+
+As you can see, the 2nd _Right Specification_ (with eligibility for a reduced rate) is linked to / dependent on the 1st one. The qualification in its eligibility definition says:  
+> "I am linked to the _Right Specification_ for the standard rate. In case you already have made active use of it **today**, you're eligible for this reduced rate right during any subsequent visit today."
 
