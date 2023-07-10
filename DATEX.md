@@ -213,7 +213,7 @@
                 {
                     "applicableFor": {
                         "fac:eligibilityName": {"com:values": {"com:value": {"lang": "en","#text": "Pre-Bookers"}}},
-                        "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "\"pre-bookers only"}}},
+                        "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "pre-bookers only"}}},
                         "fac:qualification": {
                             "fac:withReservation": true,
                             "fac:rateTableMember": {"targetClass": "fac:RateTable","id": "{ReducedPreBookerRateId}","version": 1}
