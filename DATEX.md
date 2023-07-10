@@ -9,17 +9,8 @@
     "xsi:type": "Place",
     "fac:name": { "com:values":{"com:value":{ "lang": "en","#text": "Main Street"}}},
     "fac:rates": {
-        "xsi:type": "fac:RatesByReference",
-        "fac:rateTableReference": {
-            "targetClass": "fac:RateTable",
-            "id": 0,
-            "version": 0
-        },
-        "fac:rateMatrixReference": {
-            "targetClass": "fac:RateMatrix",
-            "id": "{RateMatrixId}",
-            "version": 1
-        }
+        "xsi:type": "fac:RatesByReference", "fac:rateTableReference": {"targetClass": "fac:RateTable","id": 0,"version": 0},
+        "fac:rateMatrixReference": {"targetClass": "fac:RateMatrix","id": "{RateMatrixId}","version": 1}
     },
     "layer": 1,
     "type": "place",
@@ -46,11 +37,7 @@
             "id": "{DaylightRateId}",
             "version": 1,
             "rateTableName": {"com:values": {"com:value": {"lang": "en","#text": "public parking during daylight hours"}}},
-            "rateResponsibleParty": {
-                "targetClass": "fac:Organisation",
-                "id": "{XYZCityCouncilId}",
-                "version": 1
-            },
+            "rateResponsibleParty": {"targetClass": "fac:Organisation","id": "{XYZCityCouncilId}","version": 1},
             "rateLineCollection": {
                 "collectionSequence": 1,
                 "rateLine": {
@@ -85,11 +72,7 @@
             "id": "{EveningRateId}",
             "version": 1,
             "rateTableName": {"com:values": {"com:value": {"lang": "en","#text": "public parking during daylight hours"}}},
-            "rateResponsibleParty": {
-                "targetClass": "fac:Organisation",
-                "id": "{XYZCityCouncilId}",
-                "version": 1
-            },
+            "rateResponsibleParty": {"targetClass": "fac:Organisation","id": "{XYZCityCouncilId}","version": 1},
             "rateLineCollection": {
                 "collectionSequence": 1,
                 "rateLine": {
