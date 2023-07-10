@@ -1,5 +1,16 @@
 ![](https://img.shields.io/badge/status-work%20in%20progress-blue)
 
+
+1. [Different Charging Hours](#1-different-charging-hours)
+2. [Zero-Emission Zone](#2-zero-emission-zone)
+3. [Vehicle-based Restrictions](#3-vehicle-based-restrictions)
+4. [Different Rate for Reservation Customers](#4-different-rate-for-reservation-customers)
+5. [Customer-only Parking](#5-customer-only-parking)
+6. [Interconnected Rights - Reduced Rate for Subsequent Visits](#6-interconnected-right-specifications)
+7. [Differentiate Vehicle Type of Drive](#7-rights-per-vehicle-type-of-drive)
+8. [Differentiate Payment Methods](#8-right-per-payment-method)
+9. [Special Load Types](#9-special-load-types)
+
 ### 1. Different Charging Hours
 
 ```json
