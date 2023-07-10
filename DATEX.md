@@ -7,14 +7,7 @@
     "id": "{PlaceId}",
     "version": 1,
     "xsi:type": "Place",
-    "fac:name": {
-        "com:values": {
-            "com:value": {
-                "lang": "en",
-                "#text": "Main Street"
-            }
-        }
-    },
+    "fac:name": { "com:values":{"com:value":{ "lang": "en","#text": "Main Street"}}},
     "fac:rates": {
         "xsi:type": "fac:RatesByReference",
         "fac:rateTableReference": {
@@ -52,14 +45,7 @@
         {
             "id": "{DaylightRateId}",
             "version": 1,
-            "rateTableName": {
-                "com:values": {
-                    "com:value": {
-                        "lang": "en",
-                        "#text": "public parking during daylight hours"
-                    }
-                }
-            },
+            "rateTableName": {"com:values": {"com:value": {"lang": "en","#text": "public parking during daylight hours"}}},
             "rateResponsibleParty": {
                 "targetClass": "fac:Organisation",
                 "id": "{XYZCityCouncilId}",
@@ -77,27 +63,13 @@
                 "eligibility": "",
                 "rightSpecification": {
                     "type": "oneTimeUseParking",
-                    "description": {
-                        "com:values": {
-                            "com:value": {
-                                "lang": "en",
-                                "#text": "daylight hours"
-                            }
-                        }
-                    },
+                    "description": {"com:values": {"com:value": {"lang": "en","#text": "daylight hours"}}},
                     "validity": {
                         "com:validityStatus": "definedByValidityTimeSpec",
                         "com:validityTimeSpecification": {
                             "com:overallStartTime": "2022-09-01T00:00:00Z",
                             "com:validPeriod": {
-                                "com:periodName": {
-                                    "com:values": {
-                                        "com:value": {
-                                            "lang": "en",
-                                            "#text": "during the day"
-                                        }
-                                    }
-                                },
+                                "com:periodName": {"com:values": {"com:value": {"lang": "en","#text": "during the day"}}},
                                 "com:recurringTimePeriodOfDay": {
                                     "com:startTimeOfPeriod": "08:00:00",
                                     "com:endTimeOfPeriod": "18:30:00"
@@ -112,14 +84,7 @@
             "xsi:type": "RateTable",
             "id": "{EveningRateId}",
             "version": 1,
-            "rateTableName": {
-                "com:values": {
-                    "com:value": {
-                        "lang": "en",
-                        "#text": "public parking during daylight hours"
-                    }
-                }
-            },
+            "rateTableName": {"com:values": {"com:value": {"lang": "en","#text": "public parking during daylight hours"}}},
             "rateResponsibleParty": {
                 "targetClass": "fac:Organisation",
                 "id": "{XYZCityCouncilId}",
@@ -137,27 +102,13 @@
                 "eligibility": "",
                 "rightSpecification": {
                     "type": "oneTimeUseParking",
-                    "description": {
-                        "com:values": {
-                            "com:value": {
-                                "lang": "en",
-                                "#text": "evening hours"
-                            }
-                        }
-                    },
+                    "description": {"com:values": {"com:value": {"lang": "en","text": "evening hours"}}},
                     "validity": {
                         "com:validityStatus": "definedByValidityTimeSpec",
                         "com:validityTimeSpecification": {
                             "com:overallStartTime": "2022-09-01T00:00:00Z",
                             "com:validPeriod": {
-                                "com:periodName": {
-                                    "com:values": {
-                                        "com:value": {
-                                            "lang": "en",
-                                            "#text": "during the day"
-                                        }
-                                    }
-                                },
+                                "com:periodName": {"com:values": {"com:value": {"lang": "en","#text": "during the day"}}},
                                 "com:recurringTimePeriodOfDay": {
                                     "com:startTimeOfPeriod": "18:30:00",
                                     "com:endTimeOfPeriod": "22:00:00"
