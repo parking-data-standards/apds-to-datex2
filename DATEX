@@ -2,7 +2,7 @@
 
 ### 1. Different Charging Hours
 
-``` json
+```json
 "hierarchyElementGeneral": {
     "id": "{PlaceId}",
     "version": 1,
