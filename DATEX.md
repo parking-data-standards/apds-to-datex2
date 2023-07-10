@@ -143,21 +143,8 @@
     "id": "{OldPlaceId}",
     "version": 1,
     "xsi:type": "Place",
-    "fac:name": {
-        "com:values": {
-            "com:value": {
-                "lang": "en",
-                "#text": "The Old Shed"
-            }
-        }
-    },
-    "fac:rates": {
-        "xsi:type": "fac:RatesByReference",
-        "fac:rateTableReference": {
-            "targetClass": "fac:RateTable",
-            "id": "{RateIdforOldCarPark}",
-            "version": 1
-        }
+    "fac:name": {"com:values": {"com:value": {"lang": "en","#text": "The Old Shed"}}},
+    "fac:rates": {"xsi:type": "fac:RatesByReference","fac:rateTableReference": {"targetClass": "fac:RateTable","id": "{RateIdforOldCarPark}","version": 1}
     },
     "layer": 1,
     "type": "place",
@@ -165,14 +152,7 @@
         "additionalCharacteristics": {
             "assignment": {
                 "exclusivelyAssignedFor": {
-                    "fac:description": {
-                        "com:values": {
-                            "com:value": {
-                                "lang": "en",
-                                "#text": "very old car park, size and weight restrictions apply"
-                            }
-                        }
-                    },
+                    "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "very old car park, size and weight restrictions apply"}}},
                     "fac:qualification": {
                         "fac:vehicleCharacteristics": {
                             "com:grossWeightCharacteristic": {
