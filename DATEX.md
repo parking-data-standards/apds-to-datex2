@@ -9,8 +9,10 @@
     "xsi:type": "Place",
     "fac:name": { "com:values":{"com:value":{ "lang": "en","#text": "Main Street"}}},
     "fac:rates": {
-        "xsi:type": "fac:RatesByReference", "fac:rateTableReference": {"targetClass": "fac:RateTable","id": 0,"version": 0},
-        "fac:rateMatrixReference": {"targetClass": "fac:RateMatrix","id": "{RateMatrixId}","version": 1}
+        "xsi:type": "fac:RatesByReference", "fac:rateTableReference": {
+            "targetClass": "fac:RateTable","id": 0,"version": 0},
+        "fac:rateMatrixReference": {
+            "targetClass": "fac:RateMatrix","id": "{RateMatrixId}","version": 1}
     },
     "layer": 1,
     "type": "place",
