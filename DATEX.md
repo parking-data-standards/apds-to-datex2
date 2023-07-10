@@ -134,3 +134,69 @@
         }
     }
 }
+```
+
+### 3. Vehicle-based Restrictions
+
+```json
+"hierarchyElementGeneral": {
+    "id": "{OldPlaceId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:name": {
+        "com:values": {
+            "com:value": {
+                "lang": "en",
+                "#text": "The Old Shed"
+            }
+        }
+    },
+    "fac:rates": {
+        "xsi:type": "fac:RatesByReference",
+        "fac:rateTableReference": {
+            "targetClass": "fac:RateTable",
+            "id": "{RateIdforOldCarPark}",
+            "version": 1
+        }
+    },
+    "layer": 1,
+    "type": "place",
+    "commonComponents": {
+        "additionalCharacteristics": {
+            "assignment": {
+                "exclusivelyAssignedFor": {
+                    "fac:description": {
+                        "com:values": {
+                            "com:value": {
+                                "lang": "en",
+                                "#text": "very old car park, size and weight restrictions apply"
+                            }
+                        }
+                    },
+                    "fac:qualification": {
+                        "fac:vehicleCharacteristics": {
+                            "com:grossWeightCharacteristic": {
+                                "com:comparisonOperator": "lessThanOrEqualTo",
+                                "com:grossVehicleWeight": 1.75,
+                                "com:typeOfWeight": "maximumPermitted"
+                            },
+                            "com:heightCharacteristic": {
+                                "com:comparisonOperator": "lessThanOrEqualTo",
+                                "com:vehicleHeight": 1.9
+                            },
+                            "com:lengthCharacteristic": {
+                                "com:comparisonOperator": "lessThanOrEqualTo",
+                                "com:vehicleLength": 4.5
+                            },
+                            "com:widthCharacteristic": {
+                                "com:comparisonOperator": "lessThanOrEqualTo",
+                                "com:vehicleWidth": 1.8
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+```
+
