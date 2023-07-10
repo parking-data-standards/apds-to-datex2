@@ -37,7 +37,7 @@
 
 ```
 
-#### Corresponding RateMatrix:
+#### Corresponding RateMatrix (1)
 ```json
 "rateMatrix": {
     "id": "{RateMatrixId}",
@@ -226,3 +226,133 @@
 }
 ```
 
+### 5. Customer-only Parking
+
+```json
+"hierarchyElementGeneral": {
+    "id": "{FitnessStudioLocationId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:name": { "com:values": { "com:value": { "lang": "en", "#text": "Fit24" } } },
+    "layer": 1,
+    "type": "place",
+    "commonComponents": {
+        "additionalCharacteristics": {
+            "assignment": {
+                "exclusivelyAssignedFor": {
+                    "fac:eligibilityName": { "com:values": { "com:value": { "lang": "en", "#text": "members only" } } },
+                    "fac:qualification": {
+                        "fac:withMembership": true,
+                        "fac:membershipName": { "com:values": { "com:value": { "lang": "en", "#text": "Fit24" } } },
+                        "fac:rateTableMember": { "targetClass": "fac:RateTable", "id": "{RateTableIdForMembersOnly}", "version": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### 6. Interconnected Right Specifications
+
+```json
+"hierarchyElementGeneral": {
+    "id": "{PlaceWithConnectedRightsId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:rates": {
+        "xsi:type": "fac:RatesByReference",
+        "fac:rateTableReference": { "targetClass": "fac:RateTable", "id": 0, "version": 0 },
+        "fac:rateMatrixReference": { "targetClass": "fac:RateMatrix", "id": "{RateMatrixStandardAndReducedId}", "version": 1 } },
+    "layer": 1,
+    "type": "place"
+}
+```
+
+#### Corresponding RateMatrix (6)
+
+```json
+"rateMatrix": {
+    "id": "{RateMatrixStandardAndReducedId}",
+    "version": 1,
+    "versionTime": "2023-07-07T10:13:51+02:00",
+    "rateTable": [
+        {
+            "id": "{StandardRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "standard rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 2.8
+                }
+            }
+        },
+        {
+            "xsi:type": "RateTable",
+            "id": "{ReducedRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "Reduced rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 1
+                }
+            },
+            "rateEligibility": {
+                "eligibility": {
+                    "qualification": {
+                        "memberOfOtherRateTable": true,
+                        "rateTableMember": { "targetClass": "fac:RateTable", "id": "{StandardRateId}", "version": 1 }
+                    }
+                },
+                "rightSpecification": {
+                    "description": { "com:values": { "com:value": { "lang": "en", "#text": "Can be only used if already {StandardRateId} was applied before during that day" } } }
+                }
+            }
+        }
+    ]
+}
+```
+
+### 7. Rights per Vehicle Type of Drive
+
+```json
+
+```
+#### Corresponding RateMatrix (7)
+
+```json
+
+```
+
+### 8. Right per Payment Method
+
+```json
+
+```
+
+#### Corresponding RateMatrix (8)
+
+```json
+
+```
+
+### 9. Special Load Types
+
+```json
+
+```
+
+#### Corresponding RateMatrix (9)
+
+```json
+
+```
