@@ -108,3 +108,29 @@
 }
 ```
 
+### 2. Zero-Emission Zone
+
+```json
+"hierarchyElementGeneral": {
+    "id": "{PlaceId}",
+    "version": 1,
+    "xsi:type": "SpecificArea",
+    "fac:rates": {
+        "xsi:type": "fac:RatesByReference",
+        "fac:rateTableReference": {"targetClass": "fac:RateTable","id": "{RateIdforZeroEmissionZone}","version": 1}},
+    "layer": 1,
+    "type": "identifiedArea",
+    "additionalCharacteristics": {
+        "assignment": {
+            "exclusivelyAssignedFor": {
+                "fac:eligibilityName": {"com:values": {"com:value": {"lang": "en","#text": "zero-emission only"}}},
+                "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "only zero-emission vehicle qualify for this right"}}},
+                "fac:qualification": {
+                    "fac:vehicleCharacteristics": {
+                        "com:emissions": {"com:emissionLevel": "freeOfEmission"}
+                    }
+                }
+            }
+        }
+    }
+}
