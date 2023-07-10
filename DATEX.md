@@ -178,3 +178,40 @@
     }
 ```
 
+### 4. Different Rate for Reservation Customers
+
+```json
+"hierarchyElementGeneral": {
+    "id": "{MixedUsePlaceId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:name": {"com:values": {"com:value": {"lang": "en","#text": "City Centre Car Park"}}},
+    "layer": 1,
+    "type": "place",
+    "commonComponents": {
+        "additionalCharacteristics": {
+            "assignment": [
+                {
+                    "applicableFor": {
+                        "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "standard (non-pre-book) parkers"}}},
+                        "fac:qualification": {
+                            "fac:rateTableMember": {"targetClass": "fac:RateTable", "id": "{StandardRateId}","version": 1}
+                        }
+                    }
+                },
+                {
+                    "applicableFor": {
+                        "fac:eligibilityName": {"com:values": {"com:value": {"lang": "en","#text": "Pre-Bookers"}}},
+                        "fac:description": {"com:values": {"com:value": {"lang": "en","#text": "\"pre-bookers only"}}},
+                        "fac:qualification": {
+                            "fac:withReservation": true,
+                            "fac:rateTableMember": {"targetClass": "fac:RateTable","id": "{ReducedPreBookerRateId}","version": 1}
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+
