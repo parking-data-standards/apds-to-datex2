@@ -325,34 +325,195 @@
 ### 7. Rights per Vehicle Type of Drive
 
 ```json
-
+"hierarchyElementGeneral": {
+    "id": "{CamdenLocationId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:rates": {
+        "xsi:type": "fac:RatesByReference",
+        "fac:rateTableReference": { "targetClass": "fac:RateTable", "id": 0, "version": 0 },
+        "fac:rateMatrixReference": { "targetClass": "fac:RateMatrix", "id": "{RateMatrixPerDriveTypeId}", "version": 1 }
+    },
+    "layer": 1,
+    "type": "place"
+}
 ```
+
 #### Corresponding RateMatrix (7)
 
 ```json
-
+"rateMatrix": {
+    "id": "{RateMatrixPerDriveTypeId}",
+    "version": 1,
+    "versionTime": "2023-07-07T10:13:51+02:00",
+    "rateTable": [
+        {
+            "id": "{ReducedRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "reduced rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 1
+                }
+            },
+            "rateEligibility": {
+                "priority": 2,
+                "eligibility": {
+                    "qualification": {
+                        "propulsionEnergyType": [
+                            "battery",
+                            "ethanol",
+                            "hydrogen",
+                            "liquidGas",
+                            "lpg",
+                            "methane",
+                            "petrol"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "xsi:type": "RateTable",
+            "id": "{IncreasedRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "Increased rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 2
+                }
+            },
+            "rateEligibility": {
+                "priority": 1,
+                "eligibility": {
+                    "qualification": {
+                        "propulsionEnergyType": [
+                            "diesel",
+                            "biodiesel"
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
 ```
 
 ### 8. Right per Payment Method
 
 ```json
-
+"hierarchyElementGeneral": {
+    "id": "{PlaceId}",
+    "version": 1,
+    "xsi:type": "Place",
+    "fac:rates": {
+        "xsi:type": "fac:RatesByReference",
+        "fac:rateTableReference": { "targetClass": "fac:RateTable", "id": 0, "version": 0 },
+        "fac:rateMatrixReference": { "targetClass": "fac:RateMatrix", "id": "{RateMatrixPaymentMethodAwareId}", "version": 1 }
+    },
+    "layer": 1,
+    "type": "place"
+}
 ```
 
 #### Corresponding RateMatrix (8)
 
 ```json
-
+"rateMatrix": {
+    "id": "{RateMatrixPaymentMethodAwareId}",
+    "version": 1,
+    "versionTime": "2023-07-07T10:13:51+02:00",
+    "rateTable": [
+        {
+            "id": "{StandardRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "standard rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 2.8
+                }
+            },
+            "rateEligibility": {
+                "eligibility": {
+                    "qualification": {
+                        "paymentMethod": {
+                            "paymentMeans": [
+                                "cashBillsOnly",
+                                "cashCoinsOnly",
+                                "cashCoinsAndBills"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "xsi:type": "RateTable",
+            "id": "{ReducedRateId}",
+            "version": 1,
+            "rateTableName": { "com:values": { "com:value": { "lang": "en", "#text": "Reduced rates" } } },
+            "rateResponsibleParty": { "targetClass": "fac:Organisation", "id": "{XYZCityCouncilId}", "version": 1 },
+            "rateLineCollection": {
+                "collectionSequence": 1,
+                "rateLine": {
+                    "sequence": 1,
+                    "rateLineType": "incrementingRate",
+                    "value": 1
+                }
+            },
+            "rateEligibility": {
+                "eligibility": {
+                    "qualification": {
+                        "paymentMethod": {
+                            "paymentMeans": [
+                                "mobileAccount",
+                                "paymentCreditCard",
+                                "prepay"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
 ```
 
 ### 9. Special Load Types
 
 ```json
-
-```
-
-#### Corresponding RateMatrix (9)
-
-```json
-
+"hierarchyElementGeneral": {
+    "id": "{SpecialDeliveryZoneId}",
+    "version": 1,
+    "xsi:type": "SpecificArea",
+    "fac:name": { "com:values": { "com:value": { "lang": "en", "#text": "special delivery unloading zone" } } },
+    "layer": 1,
+    "type": "identifiedArea",
+    "additionalCharacteristics": {
+        "assignment": {
+            "exclusivelyAssignedFor": {
+                "fac:description": { "com:values": { "com:value": { "lang": "en", "#text": "delivery of special goods only" } } },
+                "fac:qualification": {
+                    "fac:noFeeToUse": true,
+                    "fac:vehicleCharacteristics": [
+                        {"com:loadType": "refrigeratedGoods"},
+                        {"com:loadType": "perishableProducts"}
+                    ]
+                }
+            }
+        }
+    }
+}
 ```
